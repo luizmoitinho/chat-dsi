@@ -1,8 +1,7 @@
 <p align=center>
    <h1>Chat para centralização de chamados no Departamento de Sistemas de Informação (DSI)</h1>
 </p>
-  
---- 
+
 ## Tema
   Desenvolvimento de uma aplicação para estabelecer a comunicação entre aluno e a secretaria do Departamento de Sistemas de Informação (DSI), permitindo que a comunidade possa acessar a plataforma, realizar um cadastro e estabelecer a comunicação com o DSI, sendo para esclarecer dúvidas, realizar solicitações e acompanhamento de processos ou enviar ou receber documentos. Mediante a isto, será possível manter o histórico de conversa e relações de documentos, centralizando a comunicação em um único canal e dispondo de recursos facilitadores tanto para o DSI, quanto por parte de quem necessita obter informações ou algum tipo de orientação.
   Tais chats, podem ser organizados em tópicos previamente estabelecidos, bem como: Dúvidas, Solicitação e Acompanhamento de Processos, Adiantamento de Disciplinas, e Solicitação e Acompanhamento de Estágio Obrigatório.
