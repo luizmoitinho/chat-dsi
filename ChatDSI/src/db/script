@@ -12,6 +12,18 @@ CREATE TABLE tb_user(
     current_port int not null
 );
 
+CREATE TABLE tb_message(
+	id int primary key auto_increment not null,
+    from_user int not null,
+    to_user int not null,
+    content text not null,
+    created_at datetime default CURRENT_TIMESTAMP
+);
+
+ALTER TABLE tb_message add foreign key(from_user) references tb_user(id);
+ALTER TABLE tb_message add foreign key(to_user) references tb_user(id);
+
+
 insert into tb_user values (null,"Departamento de Sistemas de Informação - DSI", "dsi_ufs", "123456", true, true, "127.0.0.1", 5000);
 
 select * from tb_user;
