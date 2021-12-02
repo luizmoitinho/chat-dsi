@@ -28,7 +28,7 @@
 <h3 id="aplicacao">Aplicação</h3>
  Pretende-se desenvolver uma aplicação Web que estabelecerá a comunicação com uma API (do inglês, Application Interface Programming) desenvolvida na linguagem Java, esta que por sua vez, irá prover de recursos que permitam estabelecer a comunicação e troca de mensagens e demais conteúdos a serem enviados no chat, bem como o acesso a histórico dos chats. 
   Tais chats estariam agrupados em abas de acordo com o tópico de abertura do chat, como já foi citado anteriormente no tópico “Tema”, facilitando a organização e controle das principais demandas a serem atendidas e/ou resolvidas.
-   Para tanto, a fim de manter os registros dos dados que serão inseridos na plataforma, pretende-se utilizar o PostgreSQL, este que é um sistema gerenciador de banco de dados objeto relacional (SGBD), desenvolvido como projeto de código aberto. Permitindo assim,  a inserção e recuperação dos dados de forma a manter a confidencialidade e integridade dos mesmos, pois, o PostgreSQL conta com recursos que resolvem complicações como a concorrência dos dados e relacionamento entre os mesmos. 
+   Para tanto, a fim de manter os registros dos dados que serão inseridos na plataforma, pretende-se utilizar o MySQL, este que é um sistema gerenciador de banco de dados objeto relacional (SGBD), desenvolvido como projeto de código aberto. Permitindo assim,  a inserção e recuperação dos dados de forma a manter a confidencialidade e integridade dos mesmos, pois, o MySQL conta com recursos que resolvem complicações como a concorrência dos dados e relacionamento entre os mesmos. 
 
 
 <h2 id="conf_ambiente">Configuração do Ambiente</h3>
