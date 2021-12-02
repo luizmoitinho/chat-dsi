@@ -1,116 +1,96 @@
+
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.net.SocketException;
-import java.net.UnknownHostException;
-import java.util.Observable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.ArrayList;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
-public class Server extends Observable {
+public class Server extends Thread {
+  private static ArrayList<BufferedWriter>clientes;
+  private static ServerSocket server;
+  private String nome;
+  private Socket con;
+  private InputStream in;
+  private InputStreamReader inr;
+  private BufferedReader bfr;
 
-    private String ip;
-    private int porta;
-    private String mensagem;
 
-    public Server(String ip, int porta) {
-        this.ip = ip;
-        this.porta = porta;
-        new Thread(new Recebe()).start();
+  public static void main(String []args) {
+    try{
+      //Cria os objetos necessário para instânciar o Server
+      JLabel lblMessage = new JLabel("Porta do Server:");
+      JTextField txtPorta = new JTextField("12345");
+      Object[] texts = {lblMessage, txtPorta };
+      JOptionPane.showMessageDialog(null, texts);
+      server = new ServerSocket(Integer.parseInt(txtPorta.getText()));
+      clientes = new ArrayList<BufferedWriter>();
+      JOptionPane.showMessageDialog(null,"Server ativo na porta: "+
+      txtPorta.getText());
+      while(true){
+        System.out.println("Aguardando conexão...");
+        Socket con = server.accept();
+        System.out.println("Cliente conectado...");
+        Thread t = new Server(con);
+          t.start();
+      }
+    }catch (Exception e) {
+      e.printStackTrace();
     }
+  }
 
-    public String getMensagem() {
-        return mensagem;
+  public Server(Socket con){
+    this.con = con;
+    try {
+          in  = con.getInputStream();
+          inr = new InputStreamReader(in);
+            bfr = new BufferedReader(inr);
+    } catch (IOException e) {
+            e.printStackTrace();
     }
+  }
 
-    public String getIp() {
-        return ip;
+
+  public void run(){
+    try{
+
+      String msg;
+      OutputStream ou =  this.con.getOutputStream();
+      Writer ouw = new OutputStreamWriter(ou);
+      BufferedWriter bfw = new BufferedWriter(ouw);
+      clientes.add(bfw);
+      nome = msg = bfr.readLine();
+
+      while(!"Sair".equalsIgnoreCase(msg) && msg != null){
+        msg = bfr.readLine();
+        sendToAll(bfw, msg);
+        System.out.println(msg);
+      }
+    }catch (Exception e) {
+      e.printStackTrace();
     }
+  }
 
-    public int getPorta() {
-        return porta;
+  
+  public void sendToAll(BufferedWriter bwSaida, String msg) throws  IOException {
+    BufferedWriter bwS;
+    for(BufferedWriter bw : clientes){
+      bwS = (BufferedWriter)bw;
+      if(!(bwSaida == bwS)){
+        bw.write(nome + " -> " + msg+"\r\n");
+        bw.flush();
+      }
     }
+  }
 
-    public void envia(String texto) {
-        new Thread(new Envia(texto)).start();
-    }
 
-    public void notifica(String mensagem) {
-        this.mensagem = mensagem;
-        setChanged();
-        notifyObservers();
-    }
-
-    class Recebe implements Runnable {
-
-        byte[] dadosReceber = new byte[255];
-        boolean erro = false;
-        DatagramSocket socket = null;
-
-        @Override
-        public void run() {
-            while (true) {
-                try {
-                    socket = new DatagramSocket(getPorta());
-                } catch (SocketException ex) {
-                    Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                erro = false;
-                while (!erro) {
-                    DatagramPacket pacoteRecebido = new DatagramPacket(dadosReceber, dadosReceber.length);
-                    try {
-                        socket.receive(pacoteRecebido);
-                        byte[] b = pacoteRecebido.getData();
-                        String s = "";
-                        for (int i = 0; i < b.length; i++) {
-                            if (b[i] != 0) {
-                                s += (char) b[i];
-                            }
-                        }
-                        String nome = pacoteRecebido.getAddress().toString() + " disse:";
-                        notifica(nome + s);
-                    } catch (Exception e) {
-                        System.out.println("erro");
-                        try {
-                            Thread.sleep(100);
-                        } catch (InterruptedException ex) {
-                            Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                        erro = true;
-                        continue;
-                    }
-                }
-            }
-        }
-    }
-
-    class Envia implements Runnable {
-
-        String texto;
-
-        public Envia(String texto) {
-            this.texto = texto;
-        }
-
-        @Override
-        public void run() {
-
-            byte[] dados = texto.getBytes();
-
-            try {
-                DatagramSocket clientSocket = new DatagramSocket();
-                InetAddress addr = InetAddress.getByName(getIp());
-                DatagramPacket pacote = new DatagramPacket(dados, dados.length, addr, getPorta());
-                clientSocket.send(pacote);
-                clientSocket.close();
-            } catch (SocketException ex) {
-                Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (UnknownHostException ex) {
-                Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
 }

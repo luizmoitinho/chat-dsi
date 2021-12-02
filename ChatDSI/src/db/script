@@ -1,0 +1,17 @@
+CREATE DATABASE chat_dsi
+USE chat_dsi;
+
+CREATE TABLE tb_user(
+	id int primary key auto_increment not null,
+	name varchar(255) not null,
+    login varchar(45) not null unique,
+    password text not null,
+    is_online boolean default false,
+    is_point_focal boolean default false,
+    current_ip varchar(15) not null,
+    current_port int not null
+);
+
+insert into tb_user values (null,"Departamento de Sistemas de Informação - DSI", "dsi_ufs", "123456", true, true, "127.0.0.1", 5000);
+
+select * from tb_user;

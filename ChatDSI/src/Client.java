@@ -87,13 +87,15 @@ public class Client extends JFrame implements ActionListener, KeyListener {
 
 
   public void conectar() throws IOException{
-
     socket = new Socket(txtIP.getText(),Integer.parseInt(txtPorta.getText()));
     ou = socket.getOutputStream();
     ouw = new OutputStreamWriter(ou);
     bfw = new BufferedWriter(ouw);
     bfw.write(txtNome.getText()+"\r\n");
     bfw.flush();
+    
+    System.out.printf("Client: %s - %s:%d",txtNome.getText(), socket.getLocalAddress(), socket.getLocalPort());
+    
   }
 
   public void enviarMensagem(String msg) throws IOException{
@@ -110,7 +112,6 @@ public class Client extends JFrame implements ActionListener, KeyListener {
   }
 
   public void escutar() throws IOException{
-
    InputStream in = socket.getInputStream();
    InputStreamReader inr = new InputStreamReader(in);
    BufferedReader bfr = new BufferedReader(inr);
