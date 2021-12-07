@@ -16,6 +16,5 @@ public class Application {
 	
 		for(User u1 : userService.getAll()) 
 			System.out.println(u1.toString());		
-		
 	}
 }

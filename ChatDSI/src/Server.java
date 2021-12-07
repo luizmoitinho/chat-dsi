@@ -33,12 +33,14 @@ public class Server extends Thread {
       Object[] texts = {lblMessage, txtPorta };
       JOptionPane.showMessageDialog(null, texts);
       server = new ServerSocket(Integer.parseInt(txtPorta.getText()));
+      System.out.println(server.getLocalSocketAddress());
       clientes = new ArrayList<BufferedWriter>();
       JOptionPane.showMessageDialog(null,"Server ativo na porta: "+
       txtPorta.getText());
       while(true){
         System.out.println("Aguardando conexão...");
         Socket con = server.accept();
+        
         System.out.println("Cliente conectado...");
         Thread t = new Server(con);
           t.start();
