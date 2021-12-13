@@ -20,12 +20,37 @@ $('form[name=signin]').submit(function(e){
     return
   }
 
-  var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
+  var xmlhttp = new XMLHttpRequest();
   var theUrl = url_api+"/authenticate/";
-  xmlhttp.open("POST", theUrl);
-  xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+  xmlhttp.onreadystatechange = function() {
+    console.log(this)
+    if (this.readyState == 4 && this.status == 200) {
+       alert("autenticado")
+    }
+  };
+  xmlhttp.open("POST", theUrl, true);
+  xmlhttp.setRequestHeader("Content-Type", "text/plain");
   xmlhttp.send(JSON.stringify(values));
 
   e.preventDefault()
+
 })
 
+
+
+$('form[name=create-user]').submit(function(e){
+  var $inputs = $('form[name=create-user] :input');
+  var values = {};
+  $inputs.each(function() {
+      values[this.name] = $(this).val();
+  });
+
+  var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
+  var theUrl = url_api+"/create_user/";
+  xmlhttp.open("POST", theUrl, true);
+  xmlhttp.setRequestHeader("Content-Type", "text/plain");
+  response = xmlhttp.send(JSON.stringify(values));
+  console.log(response)
+  e.preventDefault()
+
+})
