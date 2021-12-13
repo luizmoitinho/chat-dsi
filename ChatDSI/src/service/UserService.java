@@ -7,31 +7,27 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Base64;
 
-import models.User;
+import models.UserModel;
 import repository.UserRepository;
 
 public class UserService {
-	private User user;
+	private UserModel user;
 	private UserRepository userRespository;
 
 	public UserService() {
 		userRespository = new UserRepository();
 	}
 
-	public User insert(User u) {
-		MessageDigest algorithm;
-		try {
-			algorithm = MessageDigest.getInstance("SHA-256");
-			byte[] hash = algorithm.digest(u.getPassword().getBytes(StandardCharsets.UTF_8));
-			u.setPassword(Base64.getEncoder().encodeToString(hash));
-			u = this.userRespository.insert(u);
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-		}
+	public UserModel insert(UserModel u) {
+		u = this.userRespository.insert(u);
 		return u;
 	}
 	
-	public ArrayList<User> getAll(){
+	public boolean authenticate(UserModel u) {
+		return this.userRespository.authenticate(u);
+	}
+	
+	public ArrayList<UserModel> getAll(){
 		return this.userRespository.getAll();
 	}
 

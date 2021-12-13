@@ -1,6 +1,6 @@
 package models;
 
-public class User {
+public class UserModel {
 	private int id;
 	private String name, login, password;
 	private String currentIp;
@@ -8,7 +8,22 @@ public class User {
 
 	private Boolean isOnline, isPointFocal;
 	
-    public User(String name, String login, String password, Boolean isOnline, Boolean isPointFocal, String currentIp, int currentPort) {
+    public UserModel(String login, String password) {
+    	this.login = login;
+    	this.password = password;
+    }
+    
+    public UserModel(String name, String login, String password) {
+    	this.name = name;
+    	this.login = login;
+    	this.password = password;
+    	this.isOnline = false;
+    	this.isPointFocal = false;
+    	this.currentIp = "";
+    	this.currentPort = 0;	
+    }
+	
+    public UserModel(String name, String login, String password, Boolean isOnline, Boolean isPointFocal, String currentIp, int currentPort) {
     	this.name = name;
     	this.login = login;
     	this.password = password;

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Map;
 
 public class JdbcConnection {
 	/**
@@ -22,7 +23,7 @@ public class JdbcConnection {
 	
 	public JdbcConnection() {
 		super();
-		// jdbc:'mysql:/localhost:3306/meu_bd'
+		//TODO: change connection variable to .env file       
 		this.hostName = "localhost";
 		this.userName = "root";
 		this.password = "123456";

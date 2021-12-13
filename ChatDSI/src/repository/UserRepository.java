@@ -1,7 +1,7 @@
 package repository;
 
 
-import models.User;
+import models.UserModel;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -13,7 +13,27 @@ public class UserRepository {
 		this.db = new JdbcConnection();
 	}
 	
-	public User insert(User newUser) {
+	public boolean authenticate(UserModel u){
+		try {
+			String sql = "select id from tb_user where login=? and password=?";		
+			PreparedStatement stmt = this.db.getConnection().prepareStatement(sql);
+			stmt.setString(1, u.getLogin());
+			stmt.setString(2, u.getPassword());
+
+		    this.resultSet = stmt.executeQuery();
+		    if(!this.resultSet.next()) 
+		    	return false;
+			this.db.getConnection().close();
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	
+	public UserModel insert(UserModel newUser) {
 		String query = "insert into tb_user (name, login, password, is_online, is_point_focal, current_ip, current_port)"
 			        	+ " values (?, ?, ?, ?, ?, ?, ?)";
 		
@@ -40,23 +60,23 @@ public class UserRepository {
 		return newUser;
 	}
 	
-	public User updateOnline(User updateUser) {
+	public UserModel updateOnline(UserModel updateUser) {
 		return updateUser;
 	}
 	
-	public User getById(int id) {
-		return new User("teste", "teste", "123", false, false, "",1);
+	public UserModel getById(int id) {
+		return new UserModel("teste", "teste", "123", false, false, "",1);
 	}
 	
-	public ArrayList<User> getAll(){
-		ArrayList<User> users = new ArrayList<User>();
+	public ArrayList<UserModel> getAll(){
+		ArrayList<UserModel> users = new ArrayList<UserModel>();
 		try {
 			String sql = "select id, name, login, is_online, is_point_focal, current_ip, current_port from tb_user";		
 			PreparedStatement stmt;
 			stmt = this.db.getConnection().prepareStatement(sql);
 			this.resultSet = stmt.executeQuery();
 			while(this.resultSet.next()) {
-				User u = new User(
+				UserModel u = new UserModel(
 							this.resultSet.getString("id"),
 							this.resultSet.getString("name"),
 							this.resultSet.getString("login"),
