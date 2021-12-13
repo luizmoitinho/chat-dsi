@@ -1,5 +1,5 @@
 
-const url_api = "localhost:8000"
+const url_api = "http://localhost:8000"
 
 $('form[name=signin]').submit(function(e){
   var $inputs = $('form[name=signin] :input');
@@ -20,18 +20,12 @@ $('form[name=signin]').submit(function(e){
     return
   }
 
-  $.ajax({
-    type:"POST",
-    url: url_api+"/create_user",
-    data: values,
-    dataType:jsonp
-  })
-  .done(function(data){
-    console.log(data)
-  })
-  .fail(function(data){
-    alert("Erro ao tentar conectar ao servidor.")
-  })
+  var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
+  var theUrl = url_api+"/authenticate/";
+  xmlhttp.open("POST", theUrl);
+  xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+  xmlhttp.send(JSON.stringify(values));
 
+  e.preventDefault()
 })
 
