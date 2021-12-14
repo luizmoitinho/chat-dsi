@@ -36,17 +36,17 @@ public class UserRepository {
 
 	public boolean signinUser(UserModel u) {
 
-		String query = "upate tb_user set is_online = ?, current_ip = ? current_port = ? where id = ?)"
-				+ " values (?, ?, ?, ?)";
+		String query = "update tb_user set is_online=?, current_ip=?, current_port=? where id=?";
 
 		try {
+			System.out.println(u.getId());
 			PreparedStatement stmt;
 			stmt = this.db.getConnection().prepareStatement(query);
 			stmt.setBoolean(1, u.getIsOnline());
 			stmt.setString(2, u.getCurrentIp());
 			stmt.setInt(3, u.getCurrentPort());
 			stmt.setInt(4, u.getId());
-
+			
 			return stmt.executeUpdate() == 0? false:true;
 			//this.db.getConnection().close();
 

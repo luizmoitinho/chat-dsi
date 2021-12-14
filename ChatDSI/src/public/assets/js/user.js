@@ -30,9 +30,8 @@ $('form[name=signin]').submit(function(e){
         socket_ip: response.ip,
         socket_port: response.port
       }
-      localStorage.setItem("chat-dsi", user);
+      localStorage.setItem("chat-dsi", JSON.stringify(user));
       location.href = "home.html"
-
     }else if(this.readyState == 4 && this.status == 401){
       alert("Login e/ou senha estão incorretos.")
     }
@@ -116,3 +115,22 @@ $('form[name=create-user]').submit(function(e){
   }
 
 })
+
+function Sair() {
+  user = JSON.parse(localStorage.getItem("chat-dsi"));
+  var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
+  xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 204) {
+      localStorage.removeItem("chat-dsi");
+      window.location.replace("index.html");
+    }else if(this.readyState == 4 && this.status == 401){
+      alert("Ocorreu um erro ao realizar a operação.")
+    }
+  };
+  var theUrl = url_api+"/logout/";
+  xmlhttp.open("POST", theUrl, true);
+  xmlhttp.setRequestHeader("Content-Type", "text/plain");
+  response = xmlhttp.send(JSON.stringify({user_id: user.user_id }));
+
+
+}

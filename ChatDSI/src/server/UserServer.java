@@ -25,7 +25,13 @@ public class UserServer {
 	}
 	
 	public boolean logOut(JSONObject json) throws IOException {
-		return false;
+		UserModel u = new UserModel();
+		u.setId(Integer.parseInt(json.get("user_id").toString()));
+		u.setIsOnline(false);
+		u.setCurrentIp("");
+		u.setCurrentPort(0);
+		
+		return this.service.signinUser(u);
 	}
 
 	public int authenticate(JSONObject json) throws IOException {
@@ -39,6 +45,10 @@ public class UserServer {
 				return id;
 		}
 		return 0;
+	}
+	
+	public boolean signinUser(UserModel u) {
+		return this.service.signinUser(u);
 	}
 	
 	public boolean existLogin(JSONObject json) throws IOException {

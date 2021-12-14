@@ -47,7 +47,7 @@ public class HttpServerChat {
 			System.out.println("request:"+request.getRemoteAddress()+ "| data: "+jsonObject.toString());
 			//update is online
 			logout &= userServer.logOut(jsonObject);
-			logout &= removeClient(Integer.parseInt((String) jsonObject.get("userId")));
+			logout &= removeClient(Integer.parseInt((String) jsonObject.get("user_id")));
 			if (logout) {
 				response = "{\"message\":\"ok\"}";
 				request.sendResponseHeaders(200, response.length());
@@ -86,8 +86,7 @@ public class HttpServerChat {
 				u.setIsOnline(true);
 				u.setCurrentIp(client.socket.getLocalAddress().toString().replace("/", ""));
 				u.setCurrentPort(client.socket.getPort());
-				
-				
+				userServer.signinUser(u);
 				response = "{\"message\":\"ok\""+
 							",\"user_id\":\""+String.valueOf(u.getId())+"\""+
 							",\"ip\":\"" + u.getCurrentIp()+"\""+

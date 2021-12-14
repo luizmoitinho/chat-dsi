@@ -32,7 +32,7 @@ public class UserService {
 	}
 	
 	public boolean logOut(UserModel u) {
-		return false;
+		return this.userRespository.signinUser(u);
 	}
 	
 	public boolean existLogin(UserModel u) {
