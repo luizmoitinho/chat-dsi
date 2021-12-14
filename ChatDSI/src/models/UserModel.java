@@ -8,6 +8,10 @@ public class UserModel {
 
 	private Boolean isOnline, isPointFocal;
 	
+    public UserModel() {
+    	
+    }
+	
     public UserModel(String login, String password) {
     	this.login = login;
     	this.password = password;

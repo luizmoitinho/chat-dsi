@@ -29,14 +29,24 @@ public class UserServer {
 			if (password.equals(""))
 				return false;
 			UserModel user = new UserModel(json.get("login").toString(), password);
-			if (this.service.authenticate(user)) 
+			if (this.service.authenticate(user))
 				return true;
-			
+		}
+		return false;
+	}
+	
+	public boolean existLogin(JSONObject json) throws IOException {
+		if (!json.get("login").equals("") ) {
+			UserModel user = new UserModel();
+			user.setLogin(json.get("login").toString());
+			if (this.service.existLogin(user))
+				return true;
 		}
 		return false;
 	}
 
 	public boolean create(JSONObject json) {
+		//TODO: validar se usuário já existe.
 		String password = this.getHashMd5(json.get("password").toString());
 		if (password.equals(""))
 			return false;
@@ -53,7 +63,6 @@ public class UserServer {
 			m.update(password.getBytes(), 0, password.length());
 			return new BigInteger(1, m.digest()).toString(16);
 		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return "";

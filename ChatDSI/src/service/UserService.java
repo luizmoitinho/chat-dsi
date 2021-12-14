@@ -27,6 +27,10 @@ public class UserService {
 		return this.userRespository.authenticate(u);
 	}
 	
+	public boolean existLogin(UserModel u) {
+		return this.userRespository.existLogin(u);
+	}
+	
 	public ArrayList<UserModel> getAll(){
 		return this.userRespository.getAll();
 	}

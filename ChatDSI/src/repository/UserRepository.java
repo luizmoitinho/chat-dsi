@@ -32,6 +32,23 @@ public class UserRepository {
 		return false;
 	}
 	
+	public boolean existLogin(UserModel u){
+		try {
+			String sql = "select id from tb_user where login=?";		
+			PreparedStatement stmt = this.db.getConnection().prepareStatement(sql);
+			stmt.setString(1, u.getLogin());
+
+		    this.resultSet = stmt.executeQuery();
+		    if(!this.resultSet.next()) 
+		    	return false;
+			this.db.getConnection().close();
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
 	
 	public UserModel insert(UserModel newUser) {
 		String query = "insert into tb_user (name, login, password, is_online, is_point_focal, current_ip, current_port)"

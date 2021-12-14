@@ -1,0 +1,480 @@
+html,
+body {
+  height: 100%;
+}
+
+body {
+  padding:4%;
+  background-color: #f5f5f5;
+}
+
+
+#chats{
+  height: 800px;
+  overflow-y:scroll;
+ }
+
+ #chat{
+  height: 1000px;
+  overflow-y:scroll;
+ }
+
+
+ /* ===================== FORMATACAO GLOBAL ============================*/
+* {
+  padding: 0px;
+  margin: 0px;
+}
+
+
+::-webkit-scrollbar-track {
+  background-color: #F4F4F4;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  background: #F4F4F4;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #dad7d7;
+}
+
+#cabecalho {
+  background: rgb(56, 65, 153);
+
+}
+
+body {
+  height: 100%;
+  font-family: 'Livvic', sans-serif;
+  background-color: rgba(204, 204, 204, 0.932);
+  color: #000
+}
+
+button {
+  border: none;
+}
+
+input {
+  border: none,  !important;
+  width: 315px;
+  height: 50px;
+  padding: 10px;
+  border: 1px solid;
+  border-radius: 2px 2px 2px;
+  font-size: 20px;
+  outline: 0,  !important;
+}
+
+input:focus {
+  border: 1px solid rgb(49, 14, 87);
+  box-shadow: 1px 1px 5px #000;
+}
+
+
+input::placeholder {
+  color: rgb(49, 14, 87);
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 16px;
+}
+
+footer {
+  float: left;
+  position: relative;
+  background: rgb(204, 210, 211);
+  margin-top: 50px;
+  padding: 2%;
+  width: 100%;
+  height: 120px;
+  color: rgb(9, 7, 100);
+  text-align: center
+}
+
+/* ===================== ICONE DE CARREGAR  ==============================*/
+.espera-usuario {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background-color: rgba(0, 0, 0, .8);
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+}
+
+.icon-load {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: rgb(56, 65, 153);
+  border: 8px dotted rgba(58, 56, 56, 0.1);
+  border-left-color: rgb(255, 255, 255);
+  animation: spin 1s linear infinite;
+  margin: auto;
+}
+
+@keyframes spin {
+  to {
+      transform: rotate(360deg);
+  }
+}
+#painel-add-contato{
+  padding: 2%;
+  width: 400px;
+  height: 200px;
+  border-radius: 4px;
+  background-color: rgb(93, 99, 170);
+  border: 1px solid rgba(58, 56, 56, 0.1);
+  margin: auto;
+  font-size: 22px;
+  color:#fff;
+  font-weight:600;
+}
+
+
+
+
+/* ===================== BUTTONS  ==============================*/
+#BotaoEnviar {
+  cursor: pointer;
+  color: #fff;
+
+}
+
+.btn-success {
+  margin-bottom:2%;
+  padding: 9px;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  border-radius: 3px 3px 3px;
+  position: relative;
+  float: left;
+}
+
+.btn {
+  cursor: pointer;
+}
+
+#btn-sair {
+  color: #fff;
+  cursor: pointer;
+}
+
+#btn-sair span {
+  font-size: 17px;
+  margin-left: 10px;
+}
+
+#btn-cadastrar {
+  margin-top: 20px;
+}
+
+/* ===================== IDs  ==============================*/
+.linha{
+  border-bottom:2px solid rgb(79, 79, 92);
+  margin:4% 0% 2% 0%;
+}
+#logo {
+  margin-left: 100px;
+  font-size: 40px;
+  color: #fff;
+  display: inline-block;
+  font-stretch: normal;
+  cursor: pointer;
+}
+
+#barra-navegacao {
+  margin-top: 10px;
+  float: right;
+  margin-right: 120px;
+
+}
+
+#barra-navegacao .link {
+  color: #fff;
+  text-decoration: none;
+  font-size: 18px;
+  margin-right: 20px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+#barra-navegacao .link:hover {
+  border: 1px solid rgb(204, 198, 186);
+  border-radius: 4px 4px 4px 4px;
+}
+
+#tela-login {
+  background: #fff;
+  padding: 5px 45px 35px 45px;
+  margin-top: 50px;
+  opacity: 0.9;
+  float: right;
+}
+#titulo-tela-login {
+  margin: 0;
+  width: 100%;
+  display: flex;
+  text-align: left;
+  top: 0;
+  font-size: 40px;
+  color: #000;
+  display: inline-block;
+  font-stretch: normal;
+  cursor: pointer;
+}
+#tela-login input {
+  border: none,  !important;
+  width: 315px;
+  height: 50px;
+  padding: 10px;
+  border: 1px solid;
+  border-radius: 2px 2px 2px;
+  font-size: 20px;
+  outline: 0,  !important;
+}
+#inputMensagem {
+  display: inline;
+}
+
+#subtitulo-login {
+  font-size: 20px;
+
+}
+
+#head-login {
+  margin-bottom: 15px;
+}
+
+#tela-login a {
+  display: block;
+  margin-top: 10px;
+  color: rgb(12, 12, 17);
+  text-decoration: none
+}
+
+#footer-login {
+  display: flex;
+  flex-direction: column
+}
+#link-cadastro a {
+  color: rgb(10, 12, 131);
+  margin-top: 20px
+}
+
+#span-btn-enviar {
+  cursor: pointer;
+  background-color: rgb(80, 88, 160)
+}
+
+#span-btn-enviar:hover {
+  cursor: pointer;
+  background-color: rgb(26, 34, 104)
+}
+
+#avisos {
+  align-items: right;
+}
+#nome-usuario{
+  font-size: 22px;
+  font-weight: 300;
+  color:rgb(248, 244, 248);
+  background: rgb(148, 6, 136);
+  margin-bottom:4%;
+  padding:2px;
+  border-radius:3px;
+
+}
+
+#painel-contatos {
+  margin: 1%;
+}
+
+#lista-contatos {
+  background-color: rgb(243, 243, 243);
+  border-right: 2px solid #cccccc;
+  overflow: auto;
+  height: 500px;
+}
+
+#conversa {
+  background-color: rgb(243, 243, 243);
+  display: inline;
+}
+
+#conteudo-conversa {
+  background-color: rgb(182, 182, 206);
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  height: 800px;
+}
+
+
+#ListaNovosContatos {
+  color: #000;
+  margin: 0;
+  padding: 0;
+  visibility: hidden;
+}
+
+#painel-contatos {
+  margin: 1%;
+}
+
+
+#lista-contatos {
+  background-color: rgb(243, 243, 243);
+  overflow: auto;
+  height: 500px;
+}
+
+#conversa {
+  background-color: rgb(243, 243, 243);
+  display: inline;
+}
+
+#conteudo-conversa {
+  background-color: rgb(182, 182, 206);
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  height: 680px;
+}
+
+
+#ListaNovosContatos {
+  color: #000;
+  margin: 0;
+  padding: 0;
+  visibility: hidden;
+}
+
+
+/* ===================== CLASSES============================*/
+.bg-rocho{
+  background: rgb(148, 6, 136);
+  color:#fff;
+}
+.centro {
+  display: flex;
+  flex-direction: row;
+  justify-content: center
+}
+
+.div-input {
+  border: 1px solid;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.aviso {
+  font-size: 14px;
+  display: block
+}
+
+.tela-cadastro label {
+  display: flex;
+  flex-direction: row;
+  font-size: 15px;
+  margin-top: 15px;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.tela-cadastro {
+  margin-top: 1%;
+}
+
+.avisos-error {
+  width: 970px;
+  margin-top: 1%;
+  background-color: red;
+  text-align: center;
+  color: white;
+}
+
+.avisos-Sucess {
+  width: 970px;
+  margin-top: 1%;
+  background-color: green;
+  text-align: center;
+  color: white;
+}
+
+.mensagem-dir {
+  padding: 2% 5% 2% 2%;
+  font-size: 17px;
+  background-color: rgb(210, 209, 230);
+  border-radius: 4px 4px 4px;
+  margin: 2%;
+  float: right;
+}
+
+.mensagem-esq {
+  padding: 2% 10% 2% 2%;
+  font-size: 17px;
+  background-color: rgb(140, 182, 230);
+  border-radius: 4px 4px 4px;
+  margin: 2%;
+  float: left;
+}
+
+
+.item-contato {
+  color: #000;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.item-contato a:hover {
+  background-color: rgb(101, 106, 149);
+}
+
+.item-contato:hover {
+  color: rgb(89, 85, 85);
+}
+
+.apresentacao-projeto{
+  text-align:justify;
+  background-color:rgb(248, 250, 250);
+  padding: 4%;
+  color:rgb(88, 89, 99);
+  font-weight: 400;
+  transition: .2s;
+  font-size: 25px;
+}
+.apresentacao-footer{
+  background-color:rgb(248, 250, 250);
+  padding: 1%;
+  margin:1% 20px 2% 0px;
+  color:rgb(11, 28, 129);
+  font-weight: 400;
+  transition: .2s;
+}
+.apresentacao-footer:hover{
+  -moz-transform: scale(1.05);
+-webkit-transform: scale(1.05);
+transform: scale(1.05);
+  z-index: 700px;
+  transition: all .2s;
+}
+.apresentacao-footer span{
+  font-size: 22px;
+  display: block;
+}
+.apresentacao-footer a{
+  color:rgb(173, 6, 159);
+}
+.apresentacao-footer a:hover{
+  color:rgb(148, 6, 136);
+  text-decoration:none
+}
+.ufs{
+  color:rgb(20, 6, 148);
+  font-weight: 700
+}
