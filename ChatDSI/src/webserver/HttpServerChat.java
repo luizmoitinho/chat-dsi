@@ -1,4 +1,4 @@
-
+package webserver;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
@@ -18,20 +18,17 @@ import org.json.JSONObject;
 
 public class HttpServerChat {
 	public static ArrayList<Client> clients = new ArrayList<Client>();
-	public static void main(String[] args) throws Exception {
-		Server serverSocket = new Server();
-		serverSocket.start();
-		
+;	public static void main(String[] args) throws Exception {
 		InetSocketAddress address = new InetSocketAddress(8000);
-		HttpServer api = HttpServer.create(address, 0);
+		HttpServer server = HttpServer.create(address, 0);
 
-		System.out.println("web server on: " + api.getAddress());
-		api.createContext("/authenticate/", new Authenticate());
-		api.createContext("/exist_login/", new ExistLogin());
-		api.createContext("/create_user/", new CreateUser());
-		api.createContext("/logout/", new LogOut());
-		api.setExecutor(null); // creates a default executor
-		api.start();
+		System.out.println("web server on: " + server.getAddress());
+		server.createContext("/authenticate/", new Authenticate());
+		server.createContext("/exist_login/", new ExistLogin());
+		server.createContext("/create_user/", new CreateUser());
+		server.createContext("/logout/", new LogOut());
+		server.setExecutor(null); // creates a default executor
+		server.start();
 
 	}
 
@@ -84,14 +81,14 @@ public class HttpServerChat {
 				UserModel u = new UserModel();
 				u.setId(id);
 				u.setIsOnline(true);
-				u.setCurrentIp(client.socket.getLocalAddress().toString().replace("/", ""));
+				u.setCurrentIp(client.socket.getLocalAddress().toString());
 				u.setCurrentPort(client.socket.getPort());
 				
 				
-				response = "{\"message\":\"ok\""+
-							",\"user_id\":\""+String.valueOf(u.getId())+"\""+
-							",\"ip\":\"" + u.getCurrentIp()+"\""+
-							",\"port\":\""+u.getCurrentPort()+"\""+
+				response = "{\"message\":\"ok\","+
+							"\"user_id\":"+String.valueOf(u.getId())+
+							"\"ip\":" + u.getCurrentIp()+
+							"\"port\":"+u.getCurrentIp()+
 							"}";
 				request.sendResponseHeaders(200, response.length());
 				
@@ -161,7 +158,6 @@ public class HttpServerChat {
 	public static boolean removeClient(int userId) throws IOException {
 		for (Client c: clients) {
 			if(c.getId() == userId) {
-				System.out.println("client deleted id: "+String.valueOf(c.getId()));
 				c.socket.close();
 				c.stop();
 				clients.remove(c);

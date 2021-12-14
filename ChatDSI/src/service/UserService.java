@@ -23,8 +23,16 @@ public class UserService {
 		return u;
 	}
 	
-	public boolean authenticate(UserModel u) {
+	public int authenticate(UserModel u) {
 		return this.userRespository.authenticate(u);
+	}
+	
+	public boolean signinUser(UserModel u) {
+		return this.userRespository.signinUser(u);
+	}
+	
+	public boolean logOut(UserModel u) {
+		return false;
 	}
 	
 	public boolean existLogin(UserModel u) {

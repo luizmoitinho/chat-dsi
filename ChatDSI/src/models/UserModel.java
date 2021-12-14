@@ -102,11 +102,11 @@ public class UserModel {
 		this.currentPort = currentPort;
 	}
 	
-	public String getCurentIp() {
+	public String getCurrentIp() {
 		return currentIp;
 	}
 	
-	public void setCurentIp(String currentIp) {
+	public void setCurrentIp(String currentIp) {
 		this.currentIp = currentIp;
 	}
     

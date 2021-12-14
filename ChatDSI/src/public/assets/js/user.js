@@ -23,9 +23,16 @@ $('form[name=signin]').submit(function(e){
   var xmlhttp = new XMLHttpRequest();
   var theUrl = url_api+"/authenticate/";
   xmlhttp.onreadystatechange = function() {
-    console.log(this)
     if (this.readyState == 4 && this.status == 200) {
-      window.location.replace("home.html");
+      response = JSON.parse(this.response)
+      user = {
+        user_id: response.user_id,
+        socket_ip: response.ip,
+        socket_port: response.port
+      }
+      localStorage.setItem("chat-dsi", user);
+      location.href = "home.html"
+
     }else if(this.readyState == 4 && this.status == 401){
       alert("Login e/ou senha estão incorretos.")
     }

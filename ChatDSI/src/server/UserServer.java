@@ -14,6 +14,7 @@ import com.sun.net.httpserver.HttpHandler;
 
 import models.UserModel;
 import service.UserService;
+import webserver.Client;
 
 public class UserServer {
 	UserService service;
@@ -22,17 +23,22 @@ public class UserServer {
 		this.service = new UserService();
 
 	}
+	
+	public boolean logOut(JSONObject json) throws IOException {
+		return false;
+	}
 
-	public boolean authenticate(JSONObject json) throws IOException {
+	public int authenticate(JSONObject json) throws IOException {
 		if (!json.get("login").equals("") && !json.get("password").equals("")) {
 			String password = this.getHashMd5(json.get("password").toString());
 			if (password.equals(""))
-				return false;
+				return 0;
 			UserModel user = new UserModel(json.get("login").toString(), password);
-			if (this.service.authenticate(user))
-				return true;
+			int id = this.service.authenticate(user);
+			if (id != 0) 
+				return id;
 		}
-		return false;
+		return 0;
 	}
 	
 	public boolean existLogin(JSONObject json) throws IOException {
