@@ -30,11 +30,48 @@ public class HttpServerChat {
 		api.createContext("/exist_login/", new ExistLogin());
 		api.createContext("/create_user/", new CreateUser());
 		api.createContext("/logout/", new LogOut());
+		api.createContext("/contacts/", new getContacts());
 		api.setExecutor(null); // creates a default executor
 		api.start();
 
 	}
 
+	public static class getContacts implements HttpHandler {
+		public void handle(HttpExchange request) throws IOException {
+			request.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
+
+			String response;
+			
+			UserServer userServer = new UserServer();
+			JSONObject jsonObject = ServerGeneric.getJson(request);
+			System.out.println("request:"+request.getRemoteAddress()+ "| data: "+jsonObject.toString());
+			
+			ArrayList<UserModel> contacts = userServer.getContacts(jsonObject);
+			String arrayUser = "[";
+			int count = 0;
+			for(UserModel u: contacts) {
+				arrayUser += u.toJSON()+","; 
+			}
+			arrayUser = arrayUser.substring(0, arrayUser.length()-1);
+			arrayUser += "]";
+			if (contacts.size()>0) {
+				response = "{\"message\":\"ok\", \"contacts\":"+arrayUser+"}";
+				System.out.println(response);
+				request.sendResponseHeaders(200, response.length());
+			} else {
+				response = "{\"message\": \"not founded\"}";
+				request.sendResponseHeaders(404, response.length());
+			}
+			
+			OutputStream responseStream = request.getResponseBody();
+			try {
+				responseStream.write(response.getBytes());
+			} finally {
+				responseStream.close();
+			}
+		}
+	}
+	
 	public static class LogOut implements HttpHandler {
 		public void handle(HttpExchange request) throws IOException {
 			request.getResponseHeaders().add("Access-Control-Allow-Origin", "*");

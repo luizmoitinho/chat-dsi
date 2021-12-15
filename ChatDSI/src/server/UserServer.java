@@ -6,6 +6,7 @@ import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 
 import org.json.JSONObject;
 
@@ -23,6 +24,7 @@ public class UserServer {
 		this.service = new UserService();
 
 	}
+
 	
 	public boolean logOut(JSONObject json) throws IOException {
 		UserModel u = new UserModel();
@@ -34,6 +36,20 @@ public class UserServer {
 		return this.service.signinUser(u);
 	}
 
+	public ArrayList<UserModel> getContacts(JSONObject json){
+		if (!json.get("user_id").equals("")) {
+			int id = Integer.parseInt(json.get("user_id").toString());
+			UserModel currentUser =  this.service.getById(id);
+			if(currentUser.getIsPointFocal()) {
+				System.out.println("get all");
+				return this.service.getAll(id);
+			}else {
+				return this.service.getAll2(id);
+			}
+		}
+		return new ArrayList<UserModel>();
+	}
+	
 	public int authenticate(JSONObject json) throws IOException {
 		if (!json.get("login").equals("") && !json.get("password").equals("")) {
 			String password = this.getHashMd5(json.get("password").toString());

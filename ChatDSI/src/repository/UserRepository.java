@@ -105,19 +105,65 @@ public class UserRepository {
 		return updateUser;
 	}
 
-	public UserModel getById(int id) {
-		return new UserModel("teste", "teste", "123", false, false, "", 1);
-	}
-
-	public ArrayList<UserModel> getAll() {
-		ArrayList<UserModel> users = new ArrayList<UserModel>();
-		try {
-			String sql = "select id, name, login, is_online, is_point_focal, current_ip, current_port from tb_user";
+	public UserModel getById(int userId) {
+		UserModel u = new UserModel();
+		try {		
+			String sql = "select id, name, login, is_online, is_point_focal, current_ip, current_port from tb_user where id=?";
 			PreparedStatement stmt;
 			stmt = this.db.getConnection().prepareStatement(sql);
+			stmt.setInt(1, userId);
+			this.resultSet = stmt.executeQuery();
+			this.resultSet.next();
+			
+			u = new UserModel(this.resultSet.getString("id"), this.resultSet.getString("name"),
+					this.resultSet.getString("login"),
+					this.resultSet.getString("is_online").equals("1") ? true : false,
+					this.resultSet.getString("is_point_focal").equals("1") ? true : false,
+					this.resultSet.getString("current_ip"),
+					Integer.parseInt(this.resultSet.getString("current_port")));
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return u;
+	}
+
+	public ArrayList<UserModel> getAll(int userId) {
+		ArrayList<UserModel> users = new ArrayList<UserModel>();
+		try {
+			String sql = "select id, name, login, is_online, is_point_focal, current_ip, current_port from tb_user where is_point_focal=0 and id!=? ";
+			PreparedStatement stmt;
+			stmt = this.db.getConnection().prepareStatement(sql);
+			stmt.setInt(1, userId);
 			this.resultSet = stmt.executeQuery();
 			while (this.resultSet.next()) {
-				UserModel u = new UserModel(this.resultSet.getString("id"), this.resultSet.getString("name"),
+				UserModel u = new UserModel(Integer.parseInt(this.resultSet.getString("id")), this.resultSet.getString("name"),
+						this.resultSet.getString("login"),
+						this.resultSet.getString("is_online").equals("1") ? true : false,
+						this.resultSet.getString("is_point_focal").equals("1") ? true : false,
+						this.resultSet.getString("current_ip"),
+						Integer.parseInt(this.resultSet.getString("current_port")));
+				users.add(u);
+			}
+			this.db.getConnection().close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return users;
+	}
+	
+	public ArrayList<UserModel> getAll2(int userId) {
+		ArrayList<UserModel> users = new ArrayList<UserModel>();
+		try {
+			String sql = "select id, name, login, is_online, is_point_focal, current_ip, current_port from tb_user where is_point_focal=1 and id!=?";
+			PreparedStatement stmt;
+			stmt = this.db.getConnection().prepareStatement(sql);
+			stmt.setInt(1, userId);
+			this.resultSet = stmt.executeQuery();
+			while (this.resultSet.next()) {
+				UserModel u = new UserModel(Integer.parseInt(this.resultSet.getString("id")), this.resultSet.getString("name"),
 						this.resultSet.getString("login"),
 						this.resultSet.getString("is_online").equals("1") ? true : false,
 						this.resultSet.getString("is_point_focal").equals("1") ? true : false,

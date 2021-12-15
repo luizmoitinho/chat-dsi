@@ -26,6 +26,7 @@ $('form[name=signin]').submit(function(e){
     if (this.readyState == 4 && this.status == 200) {
       response = JSON.parse(this.response)
       user = {
+        user_name: values.login,
         user_id: response.user_id,
         socket_ip: response.ip,
         socket_port: response.port

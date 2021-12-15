@@ -37,6 +37,16 @@ public class UserModel {
     	this.currentPort = currentPort;	
     }
     
+    public UserModel(int id, String name, String login,  Boolean isOnline, Boolean isPointFocal, String currentIp, int currentPort) {
+    	this.id = id;
+    	this.name = name;
+    	this.login = login;
+    	this.isOnline = isOnline;
+    	this.isPointFocal = isPointFocal;
+    	this.currentIp = currentIp;
+    	this.currentPort = currentPort;	
+    }
+    
     
 	@Override
 	public String toString() {
@@ -45,7 +55,15 @@ public class UserModel {
 				+ isPointFocal + "]";
 	}
 
-
+	public String toJSON() {
+		return "{\"id\":\""+String.valueOf(this.getId())+"\""+
+				",\"name\":\""+this.getName()+"\""+
+				",\"login\":\""+this.getLogin()+"\""+
+				",\"is_online\":\""+String.valueOf(this.getIsOnline())+"\""+
+				",\"current_ip\":\""+this.getCurrentIp()+"\""+
+				",\"current_port\":\""+String.valueOf(this.getCurrentPort())+"\"}";
+	}
+	
 	public int getId() {
 		return id;
 	}

@@ -20,6 +20,7 @@ public class Server extends Thread {
 				InputStreamReader in = new InputStreamReader(socket.getInputStream());
 				BufferedReader bf = new BufferedReader(in);
 				String str = bf.readLine();
+				System.out.println(str);
 				if(str != null) {
 					System.out.println("client: "+socket.getLocalAddress());
 					System.out.println("client: "+str);	

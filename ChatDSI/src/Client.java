@@ -27,18 +27,21 @@ public class Client extends Thread{
 	}
 	
 	public void run() {
-		InputStreamReader in;
-		try {
-			in = new InputStreamReader(this.socket.getInputStream());
-			BufferedReader bf = new BufferedReader(in);
-			String str = bf.readLine();
-			if(str != null) {
-				System.out.println("server: "+this.socket.getLocalAddress());
-				System.out.println("server: "+str);				
+		while(true) {
+			InputStreamReader in;
+			try {
+				in = new InputStreamReader(this.socket.getInputStream());
+				BufferedReader bf = new BufferedReader(in);
+				String str = bf.readLine();
+				if(str != null) {
+					System.out.println("server: "+this.socket.getLocalAddress());
+					System.out.println("server: "+str);				
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
 		}
 		
 	}

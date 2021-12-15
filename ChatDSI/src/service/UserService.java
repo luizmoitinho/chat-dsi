@@ -23,6 +23,11 @@ public class UserService {
 		return u;
 	}
 	
+	public UserModel getById(int id) {
+		UserModel u = this.userRespository.getById(id);
+		return u;
+	}
+	
 	public int authenticate(UserModel u) {
 		return this.userRespository.authenticate(u);
 	}
@@ -39,8 +44,12 @@ public class UserService {
 		return this.userRespository.existLogin(u);
 	}
 	
-	public ArrayList<UserModel> getAll(){
-		return this.userRespository.getAll();
+	public ArrayList<UserModel> getAll(int id){
+		return this.userRespository.getAll(id);
+	}
+	
+	public ArrayList<UserModel> getAll2(int id){
+		return this.userRespository.getAll2(id);
 	}
 
 }
