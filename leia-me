@@ -1,0 +1,20 @@
+Para executar o projeto, deve-se atentar aos seguintes crierios:
+    1- Baixar o projeto e executar a ação "Build Project" pois há classes que foram alocadas no projetos que não são nativas;
+    2- Certificar que possui o MySQL/MariaDB instalado em sua máquina, será importante pois a maior partae das ações envolvem consultas ao banco.
+    3- Verificar se a "string" de conexão com o banco de dados da aplicação está de acordo com o banco instalado em sua maquina.
+        3.1 Ir na pasta "repository/JdbcConnection.java", esta classe é responsável por realizar a conexão com o banco de dados, para tanto, caso seja necessario, altere as credenciais para acesso.
+        3.2 Na pasta "db" possui um script que é responsável por criar tabelas e restrinções de chave, é importante que execute tal script em algum terminal ou SGBD de sua preferência.
+    4- Para iniciar a aplicação, basta executar o arquivo HttpServerChat.java que está na pasta "default"
+    5- Após isto, abra a pasta "public" e clique duas vezes no arquivo chamado "index.html".
+
+
+Nota: Evite o uso de caracteres especiais como acentos etc.
+Fluxos:
+    1- Para acessar a plataforma é necessário criar uma conta, para tanto, caso não tenha conta, clique no link que aparece embaixo do formuláriod de login para criar sua conta.    
+    2- Com a conta criada, se autentique na plataforma:
+        2.1 caso seja um "Ponto Focal" (no nosso caso usamos apenas o DSI, mas poderiamos ter mais "Pontos Focais") serão exibidos todos os contatos de usuários comuns
+        2.2 caso seja um usuário comum (representando alunos, pessoas externas etc) será exibido, para este cenário, o contato do DSI apenas.
+
+    3- Para enviar uma mensagem, selecione um chat, digite a mensagem e clique em enviar.
+    4- Os usuários que aparecem com o simbolo ° são aqueles que estão on-line no momento, já os que não as possuem, estão off-line.
+    5- Ao final, para sair da aplicação, clique no botão vermelho "Sair" e terá sua sessão encerrada.

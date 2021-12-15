@@ -54,11 +54,11 @@ public class Server extends Thread {
 				writer.print ("Access-Control-Allow-Origin: * \r\n"); 
 				writer.print ("Access-Control-Allow-Credentials: true \r\n"); 
 				
+				System.out.println("ok");
 				writer.print ("\r\n"); 
 		        writer.flush ();
 		        isReader.close ();
 		        writer.close ();
-		    
 				socket.close();
 				
 			}
