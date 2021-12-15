@@ -27,6 +27,7 @@ public class MessageServer {
 
 	}
 
+	
 
 	public ArrayList<MessageModel> getAll(JSONObject json){
 		if (!json.get("from_user").equals("") && !json.get("to_user").equals("")) {

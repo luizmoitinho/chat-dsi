@@ -50,7 +50,6 @@ $('#login').on("change", function(){
   var value = {
     login: $(this).val()
   };
-
   var xmlhttp = new XMLHttpRequest();
   var theUrl = url_api+"/exist_login/";
   xmlhttp.onreadystatechange = function() {
@@ -135,3 +134,4 @@ function Sair() {
 
 
 }
+

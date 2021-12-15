@@ -41,7 +41,6 @@ public class UserServer {
 			int id = Integer.parseInt(json.get("user_id").toString());
 			UserModel currentUser =  this.service.getById(id);
 			if(currentUser.getIsPointFocal()) {
-				System.out.println("get all");
 				return this.service.getAll(id);
 			}else {
 				return this.service.getAll2(id);

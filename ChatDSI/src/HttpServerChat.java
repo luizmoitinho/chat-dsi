@@ -45,9 +45,7 @@ public class HttpServerChat {
 
 			String response;
 			MessageServer messageServer = new MessageServer();
-			JSONObject jsonObject = ServerGeneric.getJson(request);
-			System.out.println("request:"+request.getRemoteAddress()+ "| data: "+jsonObject.toString());
-			
+			JSONObject jsonObject = ServerGeneric.getJson(request);			
 			ArrayList<MessageModel> messages = messageServer.getAll(jsonObject);
 			String arrayMessages = "[";
 			for(MessageModel m: messages) {
@@ -57,7 +55,6 @@ public class HttpServerChat {
 			arrayMessages += "]";
 			if (messages.size()>0) {
 				response = "{\"message\":\"ok\", \"messages\":"+arrayMessages+"}";
-				System.out.println(response);
 				request.sendResponseHeaders(200, response.length());
 			} else {
 				response = "{\"message\": \"not founded\"}";
@@ -76,16 +73,11 @@ public class HttpServerChat {
 	public static class getContacts implements HttpHandler {
 		public void handle(HttpExchange request) throws IOException {
 			request.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
-
 			String response;
-			
 			UserServer userServer = new UserServer();
 			JSONObject jsonObject = ServerGeneric.getJson(request);
-			System.out.println("request:"+request.getRemoteAddress()+ "| data: "+jsonObject.toString());
-			
 			ArrayList<UserModel> contacts = userServer.getContacts(jsonObject);
 			String arrayUser = "[";
-			int count = 0;
 			for(UserModel u: contacts) {
 				arrayUser += u.toJSON()+","; 
 			}
@@ -93,7 +85,6 @@ public class HttpServerChat {
 			arrayUser += "]";
 			if (contacts.size()>0) {
 				response = "{\"message\":\"ok\", \"contacts\":"+arrayUser+"}";
-				System.out.println(response);
 				request.sendResponseHeaders(200, response.length());
 			} else {
 				response = "{\"message\": \"not founded\"}";
@@ -151,7 +142,7 @@ public class HttpServerChat {
 			if (id != 0) {
 				//create socket		
 				Client client = new Client(id);
-				client.start();
+				//client.start();
 				
 				clients.add(client);
 				

@@ -35,6 +35,7 @@ public class MessageRepository {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 		return newMessage;
 	}
 
