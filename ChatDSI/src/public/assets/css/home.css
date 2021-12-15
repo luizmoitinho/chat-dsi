@@ -308,11 +308,25 @@ footer {
 }
 
 #conteudo-conversa {
-  background-color: rgb(182, 182, 206);
+  background-color: rgb(198, 225, 230);
   display: flex;
   flex-direction: column;
   overflow: auto;
   height: 800px;
+}
+
+.msg-left{
+  background-color:rgb(108, 108, 187);
+  margin:1%;
+  border-radius: 5px 5px 5px;
+  color:white;
+}
+
+.msg-right{
+  background-color:rgb(149, 149, 175);
+  margin:1%;
+  border-radius: 5px 5px 5px;
+  color:white;
 }
 
 
@@ -474,7 +488,4 @@ transform: scale(1.05);
   color:rgb(148, 6, 136);
   text-decoration:none
 }
-.ufs{
-  color:rgb(20, 6, 148);
-  font-weight: 700
-}
+

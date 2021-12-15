@@ -39,15 +39,16 @@ public class MessageRepository {
 	}
 
 
-	public ArrayList<MessageModel> getAll(int userId) {
+	public ArrayList<MessageModel> getAll(int from_user, int to_user) {
 		ArrayList<MessageModel> messages = new ArrayList<MessageModel>();
 		try {
-			String sql = "select id, from_user, to_user, created_at from tb_messages" + 
-							"where from_user = ? OR to_user = ?;";
+			String sql = "Select id, from_user, to_user, content, created_at from tb_message where from_user in (?,?) AND to_user in (?,?);";
 			PreparedStatement stmt;
 			stmt = this.db.getConnection().prepareStatement(sql);
-			stmt.setInt(1, userId);
-			stmt.setInt(2, userId);
+			stmt.setInt(1, from_user);
+			stmt.setInt(2, to_user);
+			stmt.setInt(3, from_user);
+			stmt.setInt(4, to_user);
 			
 			this.resultSet = stmt.executeQuery();
 			while (this.resultSet.next()) {
@@ -55,7 +56,7 @@ public class MessageRepository {
 												  Integer.parseInt(this.resultSet.getString("from_user")),
 												  Integer.parseInt(this.resultSet.getString("to_user")),
 												  this.resultSet.getString("content"),
-												 this.resultSet.getString("created_at"));
+												  this.resultSet.getString("created_at"));
 				messages.add(m);
 			}
 			this.db.getConnection().close();

@@ -20,6 +20,14 @@ public class MessageModel {
 		this.content = content;
 	}
 	
+	public String toJSON() {
+		return "{\"id\":\""+String.valueOf(this.getId())+"\""+
+				",\"from_user\":\""+String.valueOf(this.getFrom_user())+"\""+
+				",\"to_user\":\""+String.valueOf(this.getTo_user())+"\""+
+				",\"content\":\""+this.getContent()+"\"}";
+
+	}
+	
 	public int getId() {
 		return id;
 	}

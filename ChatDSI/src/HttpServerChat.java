@@ -8,7 +8,9 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
+import models.MessageModel;
 import models.UserModel;
+import server.MessageServer;
 import server.ServerGeneric;
 import server.UserServer;
 
@@ -31,9 +33,44 @@ public class HttpServerChat {
 		api.createContext("/create_user/", new CreateUser());
 		api.createContext("/logout/", new LogOut());
 		api.createContext("/contacts/", new getContacts());
+		api.createContext("/messages/", new Messages());
 		api.setExecutor(null); // creates a default executor
 		api.start();
 
+	}
+	
+	public static class Messages implements HttpHandler {
+		public void handle(HttpExchange request) throws IOException {
+			request.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
+
+			String response;
+			MessageServer messageServer = new MessageServer();
+			JSONObject jsonObject = ServerGeneric.getJson(request);
+			System.out.println("request:"+request.getRemoteAddress()+ "| data: "+jsonObject.toString());
+			
+			ArrayList<MessageModel> messages = messageServer.getAll(jsonObject);
+			String arrayMessages = "[";
+			for(MessageModel m: messages) {
+				arrayMessages += m.toJSON()+","; 
+			}
+			arrayMessages = arrayMessages.substring(0, arrayMessages.length()-1);
+			arrayMessages += "]";
+			if (messages.size()>0) {
+				response = "{\"message\":\"ok\", \"messages\":"+arrayMessages+"}";
+				System.out.println(response);
+				request.sendResponseHeaders(200, response.length());
+			} else {
+				response = "{\"message\": \"not founded\"}";
+				request.sendResponseHeaders(404, response.length());
+			}
+			
+			OutputStream responseStream = request.getResponseBody();
+			try {
+				responseStream.write(response.getBytes());
+			} finally {
+				responseStream.close();
+			}
+		}
 	}
 
 	public static class getContacts implements HttpHandler {
